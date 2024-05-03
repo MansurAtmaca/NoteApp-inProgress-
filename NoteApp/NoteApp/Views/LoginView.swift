@@ -8,19 +8,38 @@
 import SwiftUI
 
 struct LoginView: View {
+    @StateObject var viewmodel = LoignViewViewModel()
     var body: some View {
-        // Header
+    
+        NavigationStack{
+            Image("logo")
+                .resizable()
+                .frame(width: 200,height: 200)
+            Form{
+                if !viewmodel.errorMessage.isEmpty{
+                    Text(viewmodel.errorMessage)
+                        .foregroundStyle(.red)
+                }
+                TextField("E-posta", text: $viewmodel.email)
+                SecureField("Şifre", text: $viewmodel.password)
+            }
+            .frame(height: 200)
+            BigButton(text: "Giriş Yap", action: viewmodel.login)
+            HStack{
+                Text("İlk kez mi geliyorsun!")
+                
+                NavigationLink(destination: RegisterView(), label: {
+                    Text("Kayıt ol")
+                })
+            }
+        }
+      
+        Spacer()
         
-        
-        // Email and password
-        
-        
-        // Button
-        
-        //Register
+      
     }
 }
 
 #Preview {
-    LoginView()
+  LoginView()
 }

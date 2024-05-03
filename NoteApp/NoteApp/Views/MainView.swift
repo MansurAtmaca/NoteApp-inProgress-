@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct MainView: View {
+    @StateObject var viewmodel = MainViewViewModel()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if viewmodel.isSigned, !viewmodel.currentUser.isEmpty{
+            ToDoListView()
+        }else{
+            LoginView()
         }
-        .padding()
     }
 }
 
